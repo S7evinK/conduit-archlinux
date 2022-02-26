@@ -1,23 +1,14 @@
----
- conduit-example.toml          | 2 +-
- debian/matrix-conduit.service | 5 +++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+From 93a2c08087550770dd8905f8e2bb77d4914bb0f8 Mon Sep 17 00:00:00 2001
+From: S7evinK <s73vink@gmail.com>
+Date: Sat, 26 Feb 2022 08:42:14 +0100
+Subject: [PATCH] Update service
 
-diff --git a/conduit-example.toml b/conduit-example.toml
-index 8008256..013bc44 100644
---- a/conduit-example.toml
-+++ b/conduit-example.toml
-@@ -12,7 +12,7 @@
- #server_name = "your.server.name"
- 
- # This is the only directory where Conduit will save its data
--database_path = "/var/lib/conduit/"
-+database_path = "/var/lib/matrix-conduit/"
- 
- # The port Conduit will be running on. You need to set up a reverse proxy in
- # your web server (e.g. apache or nginx), so all requests to /_matrix on port
+---
+ debian/matrix-conduit.service | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
 diff --git a/debian/matrix-conduit.service b/debian/matrix-conduit.service
-index 7c12d1a..6170663 100644
+index 7c12d1a..24bb7c3 100644
 --- a/debian/matrix-conduit.service
 +++ b/debian/matrix-conduit.service
 @@ -3,6 +3,7 @@ Description=Conduit Matrix homeserver
@@ -28,12 +19,9 @@ index 7c12d1a..6170663 100644
  User=_matrix-conduit
  Group=_matrix-conduit
  Type=simple
-@@ -34,9 +35,9 @@ SystemCallFilter=@system-service
- SystemCallErrorNumber=EPERM
- StateDirectory=matrix-conduit
+@@ -36,7 +37,7 @@ StateDirectory=matrix-conduit
  
--Environment="CONDUIT_CONFIG=/etc/matrix-conduit/conduit.toml"
-+Environment="CONDUIT_CONFIG=/etc/matrix-conduit.toml"
+ Environment="CONDUIT_CONFIG=/etc/matrix-conduit/conduit.toml"
  
 -ExecStart=/usr/sbin/matrix-conduit
 +ExecStart=/usr/bin/matrix-conduit
@@ -41,5 +29,5 @@ index 7c12d1a..6170663 100644
  RestartSec=10
  StartLimitInterval=1m
 -- 
-2.33.0
+2.35.1
 
