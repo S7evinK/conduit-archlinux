@@ -1,6 +1,6 @@
 pkgbase = matrix-conduit-git
 	pkgdesc = A Matrix homeserver written in Rust
-	pkgver = 0.3.0.1404.g6788225
+	pkgver = 0.3.0.1468.g2fcb3c8
 	pkgrel = 1
 	url = https://conduit.rs
 	install = install-script.install

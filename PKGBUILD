@@ -1,7 +1,7 @@
 # Maintainer: Till Faelligen <tfaelligen at gmail dot com>
 pkgname='matrix-conduit-git'
 _pkgname='conduit'
-pkgver=0.3.0.1404.g6788225
+pkgver=0.3.0.1468.g2fcb3c8
 pkgrel=1
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='https://conduit.rs'
@@ -31,6 +31,7 @@ prepare() {
   cd "$_pkgname"
   patch --forward --strip=1 --input="${srcdir}/0001-update-service-dynamicuser_paths.patch"
   patch --forward --strip=1 --input="${srcdir}/0002-example-info.patch"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 pkgver() {
@@ -38,9 +39,18 @@ pkgver() {
 	echo "$(grep '^version =' Cargo.toml|head -n1|cut -d\" -f2|cut -d\- -f1).$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
+check() {
+  cd "$_pkgname"
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen
+}
+
 build(){
   cd "$_pkgname"
-  env CARGO_INCREMENTAL=0 cargo build --release --locked
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
 }
 
 package() {
